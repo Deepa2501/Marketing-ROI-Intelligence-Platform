@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Overview · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Overview{% endblock %}
+{% block page_desc %}Executive summary of campaign performance{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero__eyebrow">Marketing ROI Intelligence</div>
+  <h1 class="hero__title">Marketing ROI Intelligence</h1>
+  <p class="hero__subtitle">
+    Executive overview of campaign performance, ROI, customer segments and marketing efficiency.
+  </p>
+</section>
+
+<div class="grid" style="grid-template-columns: repeat(3, 1fr);" id="kpi-grid">
+  <div class="card"><div class="card__label">Total Campaigns</div><div class="card__value" id="kpi-total-campaigns">—</div></div>
+  <div class="card"><div class="card__label">Total Revenue</div><div class="card__value" id="kpi-total-revenue">—</div></div>
+  <div class="card"><div class="card__label">Average ROI</div><div class="card__value" id="kpi-avg-roi">—</div></div>
+  <div class="card"><div class="card__label">Total Conversions</div><div class="card__value" id="kpi-total-conversions">—</div></div>
+  <div class="card"><div class="card__label">Avg. Acquisition Cost</div><div class="card__value" id="kpi-avg-cost">—</div></div>
+  <div class="card"><div class="card__label">Avg. Engagement Score</div><div class="card__value" id="kpi-avg-engagement">—</div></div>
+</div>
+
+<div class="grid grid--2" style="margin-bottom: 16px;">
+  <div class="chart-panel">
+    <div class="chart-panel__title">Revenue by Campaign Type</div>
+    <div class="chart-panel__subtitle">Total revenue, all campaigns</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-revenue-by-type"></canvas></div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-panel__title">Average ROI by Campaign Type</div>
+    <div class="chart-panel__subtitle">Mean ROI across campaigns of each type</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-roi-by-type"></canvas></div>
+  </div>
+</div>
+
+<div class="grid grid--2" style="margin-bottom: 16px;">
+  <div class="chart-panel">
+    <div class="chart-panel__title">Revenue by Customer Segment</div>
+    <div class="chart-panel__subtitle">Total revenue, all campaigns</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-revenue-by-segment"></canvas></div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-panel__title">Average ROI by Customer Segment</div>
+    <div class="chart-panel__subtitle">Mean ROI across campaigns per segment</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-roi-by-segment"></canvas></div>
+  </div>
+</div>
+
+<section class="panel">
+  <h2 class="panel__title">Campaign Type Performance</h2>
+  <div id="type-performance-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Key Findings</h2>
+  <div class="grid grid--2" id="insight-cards">
+    <div class="state state--loading">Loading insights…</div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/overview.js') }}"></script>
+{% endblock %}

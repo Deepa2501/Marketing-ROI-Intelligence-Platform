@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Marketing Intelligence · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Marketing Intelligence{% endblock %}
+{% block page_desc %}Trends, performance drivers, funnel efficiency, and actionable insights{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <h2 class="panel__title">Trend Intelligence</h2>
+  <p class="panel__text" style="margin-bottom:14px;">Monthly aggregates from the connected dataset.</p>
+  <div class="grid grid--2" style="margin-bottom:16px;">
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Revenue Trend</div><div class="chart-canvas-wrap"><canvas id="chart-trend-revenue"></canvas></div></div>
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">ROI Trend</div><div class="chart-canvas-wrap"><canvas id="chart-trend-roi"></canvas></div></div>
+  </div>
+  <div class="grid grid--2">
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Conversions Trend</div><div class="chart-canvas-wrap"><canvas id="chart-trend-conversions"></canvas></div></div>
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Engagement Trend</div><div class="chart-canvas-wrap"><canvas id="chart-trend-engagement"></canvas></div></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Performance Driver Analysis</h2>
+  <p class="panel__text" style="margin-bottom:14px;" id="driver-disclaimer"></p>
+  <div class="chart-panel" style="margin-bottom:16px;">
+    <div class="chart-panel__title">ROI Correlation Analysis</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-driver-correlations"></canvas></div>
+  </div>
+  <div class="grid grid--2">
+    <div>
+      <h3 style="font-size:12.5px; font-family: var(--font-mono); color: var(--text-faint); text-transform:uppercase; margin-bottom:10px;">By Campaign Type</h3>
+      <div id="driver-type-table"><div class="state state--loading">Loading…</div></div>
+    </div>
+    <div>
+      <h3 style="font-size:12.5px; font-family: var(--font-mono); color: var(--text-faint); text-transform:uppercase; margin-bottom:10px;">By Customer Segment</h3>
+      <div id="driver-segment-table"><div class="state state--loading">Loading…</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Marketing Funnel Intelligence</h2>
+  <div id="funnel-summary" class="grid" style="grid-template-columns: repeat(4,1fr); margin-bottom:16px;"><div class="state state--loading">Loading…</div></div>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__title">Funnel Volume by Stage</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-funnel"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Marketing Efficiency Analysis</h2>
+  <p class="panel__text" style="margin-bottom:14px;" id="efficiency-note"></p>
+  <div class="grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:16px;" id="efficiency-highlights"></div>
+  <div class="chart-panel" style="margin-bottom:16px;">
+    <div class="chart-panel__title">Average ROI by Acquisition Cost Bucket (Quintiles)</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-efficiency-buckets"></canvas></div>
+  </div>
+  <div id="efficiency-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Actionable Business Insights</h2>
+  <div id="insights-grid" class="grid grid--2"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Decision Guardrails</h2>
+  <div class="guardrails-panel">
+    <ul>
+      <li>Observed performance describes historical association, not proven causation.</li>
+      <li>Correlations between metrics (e.g. Acquisition Cost and ROI) do not establish that one causes the other.</li>
+      <li>Funnel and efficiency findings reflect this dataset's historical patterns, not a guarantee of future performance.</li>
+      <li>Small-sample groups (low campaign counts) should be treated with additional caution.</li>
+      <li>Experimental (A/B test) evidence should be reviewed before major budget reallocation decisions.</li>
+    </ul>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/marketing-intelligence.js') }}"></script>
+{% endblock %}

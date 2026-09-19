@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Marketing Analyst Copilot · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Marketing Analyst Copilot{% endblock %}
+{% block page_desc %}Ask questions about your marketing data{% endblock %}
+
+{% block content %}
+
+<div class="copilot-layout">
+
+  <section class="panel copilot-main">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+      <h2 class="panel__title" style="margin-bottom:0;">Conversation</h2>
+      <span class="governance-badge">Evidence-Based Analytical Assistant</span>
+    </div>
+
+    <div class="copilot-thread" id="copilot-thread">
+      <div class="copilot-msg copilot-msg--assistant">
+        <div class="copilot-msg__role">Copilot</div>
+        <div class="copilot-msg__body">
+          Ask a question about the connected marketing dataset. I answer only from this platform's validated
+          analytics — I never invent statistics, and I'll tell you when something can't be answered reliably.
+        </div>
+      </div>
+    </div>
+
+    <div class="copilot-composer">
+      <input type="text" id="copilot-input" placeholder="e.g. Which campaign type has the highest average ROI?" maxlength="500" autocomplete="off" />
+      <button type="button" class="btn btn-primary" id="copilot-ask-btn">Ask</button>
+      <button type="button" class="btn" id="copilot-clear-btn">Clear</button>
+    </div>
+    <div class="field-error" id="copilot-error" hidden></div>
+  </section>
+
+  <aside class="panel copilot-side">
+    <h2 class="panel__title">Capabilities</h2>
+    <p class="panel__text" style="margin-bottom:14px;">
+      Click any question to ask it. Runs entirely on this platform's own analytics — no external AI service.
+    </p>
+    <div id="suggested-questions" class="suggested-list"></div>
+    <div id="capability-list" class="capability-list" style="margin-top:18px;"></div>
+  </aside>
+
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/copilot.js') }}"></script>
+{% endblock %}

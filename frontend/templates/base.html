@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Marketing ROI Intelligence Platform{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__brand">
+        <span class="sidebar__mark">MRx</span>
+        <div class="sidebar__brand-text">
+          <span class="sidebar__brand-name">Marketing ROI</span>
+          <span class="sidebar__brand-sub">Intelligence</span>
+        </div>
+        <button class="sidebar__collapse-btn" id="sidebar-collapse-btn" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar__nav" aria-label="Primary">
+        <a class="sidebar__link{{ ' is-active' if active_page == 'executive-center' else '' }}" href="{{ url_for('executive_center_page') }}" data-label="Executive Decision Center">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9873;</span>
+          <span class="sidebar__link-label">Executive Decision Center</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'overview' else '' }}" href="{{ url_for('index') }}" data-label="Overview">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9671;</span>
+          <span class="sidebar__link-label">Overview</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'campaign-analytics' else '' }}" href="{{ url_for('campaign_analytics') }}" data-label="Campaign Analytics">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9636;</span>
+          <span class="sidebar__link-label">Campaign Analytics</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'marketing-intelligence' else '' }}" href="{{ url_for('marketing_intelligence_page') }}" data-label="Marketing Intelligence">
+          <span class="sidebar__link-icon" aria-hidden="true">&#10148;</span>
+          <span class="sidebar__link-label">Marketing Intelligence</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'forecasting' else '' }}" href="{{ url_for('forecasting_page') }}" data-label="Forecasting & Future Outlook">
+          <span class="sidebar__link-icon" aria-hidden="true">&#8981;</span>
+          <span class="sidebar__link-label">Forecasting &amp; Future Outlook</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'data-quality' else '' }}" href="{{ url_for('data_quality_page') }}" data-label="Data Quality & Governance">
+          <span class="sidebar__link-icon" aria-hidden="true">&#10003;</span>
+          <span class="sidebar__link-label">Data Quality &amp; Governance</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'platform-health' else '' }}" href="{{ url_for('platform_health_page') }}" data-label="Platform Health">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9829;</span>
+          <span class="sidebar__link-label">Platform Health</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'statistics' else '' }}" href="{{ url_for('statistics_page') }}" data-label="Statistical Intelligence">
+          <span class="sidebar__link-icon" aria-hidden="true">&#8767;</span>
+          <span class="sidebar__link-label">Statistical Intelligence</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'ab-testing' else '' }}" href="{{ url_for('ab_testing_page') }}" data-label="A/B Testing">
+          <span class="sidebar__link-icon" aria-hidden="true">&#8644;</span>
+          <span class="sidebar__link-label">A/B Testing</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'roi-prediction' else '' }}" href="{{ url_for('roi_prediction_page') }}" data-label="ROI Prediction">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9678;</span>
+          <span class="sidebar__link-label">ROI Prediction</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'scenario-simulator' else '' }}" href="{{ url_for('scenario_simulator_page') }}" data-label="Scenario Simulator">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9881;</span>
+          <span class="sidebar__link-label">Scenario Simulator</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'budget-optimizer' else '' }}" href="{{ url_for('budget_optimizer_page') }}" data-label="Budget Allocation Optimizer">
+          <span class="sidebar__link-icon" aria-hidden="true">&#8646;</span>
+          <span class="sidebar__link-label">Budget Allocation Optimizer</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'copilot' else '' }}" href="{{ url_for('copilot_page') }}" data-label="Marketing Analyst Copilot">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9993;</span>
+          <span class="sidebar__link-label">Marketing Analyst Copilot</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'model-intelligence' else '' }}" href="{{ url_for('model_intelligence_page') }}" data-label="Model Intelligence">
+          <span class="sidebar__link-icon" aria-hidden="true">&#11049;</span>
+          <span class="sidebar__link-label">Model Intelligence</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'business-insights' else '' }}" href="{{ url_for('business_insights_page') }}" data-label="Business Insights">
+          <span class="sidebar__link-icon" aria-hidden="true">&#10022;</span>
+          <span class="sidebar__link-label">Business Insights</span>
+        </a>
+        <a class="sidebar__link{{ ' is-active' if active_page == 'recommendations' else '' }}" href="{{ url_for('recommendations_page') }}" data-label="Recommendation Intelligence">
+          <span class="sidebar__link-icon" aria-hidden="true">&#9673;</span>
+          <span class="sidebar__link-label">Recommendation Intelligence</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="data-status" id="data-status" role="status">
+          <span class="data-status__dot" id="data-status-dot"></span>
+          <span class="data-status__text" id="data-status-text">Checking dataset…</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="topbar">
+        <button class="topbar__menu-btn" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="topbar__titles">
+          <div class="topbar__title">{% block page_title %}Overview{% endblock %}</div>
+          <div class="topbar__desc">{% block page_desc %}{% endblock %}</div>
+        </div>
+        <div class="topbar__right">
+          <div class="campaign-badge" id="campaign-badge" title="Total campaigns in the connected dataset">
+            <span class="campaign-badge__dot"></span>
+            <span id="campaign-badge-text">—</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/vendor/chart.umd.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

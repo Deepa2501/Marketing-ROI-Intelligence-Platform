@@ -1,0 +1,76 @@
+{
+  "model_name": "Random Forest (early-stage)",
+  "prediction_type": "early_stage",
+  "features": [
+    "Campaign_Type",
+    "Target_Audience",
+    "Channel_Used",
+    "Language",
+    "Customer_Segment",
+    "Duration",
+    "Acquisition_Cost"
+  ],
+  "categorical_features": [
+    "Campaign_Type",
+    "Target_Audience",
+    "Channel_Used",
+    "Language",
+    "Customer_Segment"
+  ],
+  "numeric_features": [
+    "Duration",
+    "Acquisition_Cost"
+  ],
+  "target": "ROI",
+  "train_sample_count": 44444,
+  "test_sample_count": 11111,
+  "total_sample_count": 55555,
+  "random_state": 42,
+  "training_timestamp_utc": "2026-08-16T03:20:09.677270+00:00",
+  "metrics": {
+    "r2": 0.8092623758706269,
+    "mae": 1.1346311751716167,
+    "rmse": 1.9760077662740876
+  },
+  "model_comparison": {
+    "strategy_only": {
+      "model_name": "Linear Regression (strategy-only)",
+      "features": [
+        "Campaign_Type",
+        "Target_Audience",
+        "Channel_Used",
+        "Language",
+        "Customer_Segment"
+      ],
+      "r2": -0.002524731787918677,
+      "mae": 2.9447465065651137,
+      "rmse": 4.53020662080324
+    },
+    "cost_only": {
+      "model_name": "Random Forest (cost-only)",
+      "features": [
+        "Acquisition_Cost"
+      ],
+      "r2": 0.7907950955144284,
+      "mae": 1.151433204545539,
+      "rmse": 2.069456936987745
+    },
+    "early_stage": {
+      "model_name": "Random Forest (early-stage)",
+      "features": [
+        "Campaign_Type",
+        "Target_Audience",
+        "Channel_Used",
+        "Language",
+        "Customer_Segment",
+        "Duration",
+        "Acquisition_Cost"
+      ],
+      "r2": 0.8092623758706269,
+      "mae": 1.1346311751716167,
+      "rmse": 1.9760077662740876
+    }
+  },
+  "additional_r2_from_early_stage_features_vs_cost_only": 0.01846728035619849,
+  "dominant_feature_note": "Acquisition_Cost explains most of the early-stage model's predictive power. Model predictions are decision-support estimates, not evidence that campaign strategy independently causes ROI."
+}

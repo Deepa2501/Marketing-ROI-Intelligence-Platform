@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}ROI Prediction · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}ROI Prediction{% endblock %}
+{% block page_desc %}Early-stage decision-support ROI estimate{% endblock %}
+
+{% block content %}
+<div class="predict-layout">
+
+  <section class="panel predict-form-panel">
+    <h2 class="panel__title">Campaign inputs</h2>
+    <p class="panel__text" style="margin-bottom: 16px;">
+      Only planning-stage information is used — no outcome data (revenue, clicks, leads,
+      conversions) is available or used at this stage.
+    </p>
+
+    <form id="predict-form" class="predict-form">
+      <div class="field">
+        <label for="campaign_type">Campaign Type</label>
+        <select id="campaign_type" name="Campaign_Type" required></select>
+      </div>
+
+      <div class="field">
+        <label for="target_audience">Target Audience</label>
+        <select id="target_audience" name="Target_Audience" required></select>
+      </div>
+
+      <div class="field">
+        <label for="duration">Duration (days)</label>
+        <input type="number" id="duration" name="Duration" min="1" max="365" value="20" required />
+      </div>
+
+      <div class="field">
+        <label for="channel">Channel</label>
+        <input type="text" id="channel" name="Channel_Used" placeholder="e.g. Instagram, Google Ads" required />
+      </div>
+
+      <div class="field">
+        <label for="language">Language</label>
+        <select id="language" name="Language" required></select>
+      </div>
+
+      <div class="field">
+        <label for="customer_segment">Customer Segment</label>
+        <select id="customer_segment" name="Customer_Segment" required></select>
+      </div>
+
+      <div class="field">
+        <label for="acquisition_cost">Acquisition Cost</label>
+        <input type="number" id="acquisition_cost" name="Acquisition_Cost" min="0" step="0.01" value="500" required />
+      </div>
+
+      <button type="submit" class="btn-predict" id="predict-btn">Predict ROI</button>
+      <div class="field-error" id="form-error" hidden></div>
+    </form>
+  </section>
+
+  <section class="panel predict-result-panel">
+    <h2 class="panel__title">Prediction</h2>
+
+    <div id="result-empty" class="result-empty">
+      Fill in the form and click <strong>Predict ROI</strong> to see a model estimate.
+    </div>
+
+    <div id="result-content" class="result-content" hidden>
+      <div class="result-value-block">
+        <div class="card__label">Predicted ROI</div>
+        <div class="result-value" id="result-roi">—</div>
+        <div class="result-error-note" id="result-error-note"></div>
+      </div>
+
+      <div class="roi-gauge">
+        <div class="roi-gauge__track"><div class="roi-gauge__marker" id="roi-gauge-marker" style="left:50%;"></div></div>
+        <div class="roi-gauge__label" id="roi-gauge-label">—</div>
+        <div class="roi-gauge__note">Illustrative interpretation — not a statistically derived threshold.</div>
+      </div>
+
+      <div class="result-meta" style="margin-top: 18px;">
+        <div class="result-meta__row"><span>Model</span><span id="result-model">—</span></div>
+        <div class="result-meta__row"><span>Prediction type</span><span id="result-type">—</span></div>
+        <div class="result-meta__row"><span>Model R²</span><span id="result-r2">—</span></div>
+        <div class="result-meta__row"><span>Model MAE</span><span id="result-mae">—</span></div>
+      </div>
+
+      <div class="result-caveat" id="result-caveat"></div>
+
+      <div id="prediction-context-panel" class="prediction-context-panel" hidden>
+        <div class="prediction-context-panel__title">Prediction Context</div>
+        <div class="prediction-context-grid" id="prediction-context-grid"></div>
+        <div class="prediction-context-panel__title" style="margin-top: 4px;">Primary Model Driver</div>
+        <p class="panel__text" style="margin: 6px 0 2px;"><strong id="primary-model-driver" style="color: var(--text);">—</strong></p>
+        <p class="panel__text" id="primary-model-driver-disclaimer" style="font-size: 11.5px;"></p>
+        <p class="error-context-note" id="error-context-label"></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/roi-prediction.js') }}"></script>
+{% endblock %}

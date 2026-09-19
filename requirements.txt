@@ -1,0 +1,12 @@
+# Marketing ROI Intelligence Platform — Phase 1 foundation dependencies
+# Additional packages (e.g. pytest) will be added as later phases require them.
+
+Flask==3.0.3
+python-dotenv==1.0.1
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.5.1
+joblib==1.4.2
+gunicorn==22.0.0
+pytest==8.3.3

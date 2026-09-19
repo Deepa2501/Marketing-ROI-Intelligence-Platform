@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Budget Allocation Optimizer · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Budget Allocation Optimizer{% endblock %}
+{% block page_desc %}Explore illustrative budget allocation strategies using historical marketing evidence{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Allocation Controls</h2>
+    <span class="governance-badge">Decision Support — Not Automated Budget Deployment</span>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-field" style="min-width:190px;">
+      <label for="opt-dimension">Allocation Dimension</label>
+      <select id="opt-dimension">
+        <option value="Campaign Type">Campaign Type</option>
+        <option value="Customer Segment">Customer Segment</option>
+        <option value="Target Audience">Target Audience</option>
+        <option value="Channel Group">Channel Group</option>
+      </select>
+    </div>
+    <div class="filter-field" style="min-width:180px;">
+      <label for="opt-budget">Total Marketing Budget (₹)</label>
+      <input type="number" id="opt-budget" min="1" step="1000" value="1000000" />
+    </div>
+    <div class="filter-field" style="min-width:130px;">
+      <label for="opt-min">Minimum Allocation (%)</label>
+      <input type="number" id="opt-min" min="0" max="100" step="1" value="5" />
+    </div>
+    <div class="filter-field" style="min-width:130px;">
+      <label for="opt-max">Maximum Allocation (%)</label>
+      <input type="number" id="opt-max" min="0" max="100" step="1" value="40" />
+    </div>
+    <div class="filter-field" style="min-width:170px;">
+      <label for="opt-risk-mode">Risk Mode</label>
+      <select id="opt-risk-mode">
+        <option value="Conservative">Conservative</option>
+        <option value="Balanced" selected>Balanced</option>
+        <option value="Performance-focused">Performance-focused</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" id="optimize-btn">Optimize Allocation</button>
+  </div>
+
+  <div class="field-error" id="opt-error" hidden></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Summary</h2>
+  <div class="grid" style="grid-template-columns: repeat(5, 1fr);" id="summary-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Recommended Allocation</h2>
+    <div class="filter-field" style="min-width:210px;">
+      <label for="strategy-select">Strategy</label>
+      <select id="strategy-select">
+        <option value="risk_adjusted" selected>Risk-Adjusted Allocation</option>
+        <option value="performance">Performance Allocation</option>
+        <option value="equal">Equal Allocation</option>
+      </select>
+    </div>
+  </div>
+  <div id="allocation-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Allocation by Group</h2>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__subtitle" id="chart-subtitle">Allocation percentage for the selected strategy.</div>
+    <div class="chart-canvas-wrap chart-canvas-wrap--tall"><canvas id="chart-allocation"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Strategy Comparison</h2>
+  <p class="panel__text" style="margin-bottom:14px;" id="comparison-note"></p>
+  <div id="comparison-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Budget Sensitivity</h2>
+  <p class="panel__text" style="margin-bottom:14px;">
+    Allocation percentages are held constant while total budget changes. Changing budget does not guarantee proportional future returns.
+  </p>
+  <div id="sensitivity-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Why this allocation?</h2>
+  <div id="explanations-list"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Allocation Guardrails</h2>
+  <div class="guardrails-panel">
+    <ul id="guardrails-list"></ul>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/budget-optimizer.js') }}"></script>
+{% endblock %}

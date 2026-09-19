@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}Campaign Analytics · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Campaign Analytics{% endblock %}
+{% block page_desc %}Filter, compare, and drill into every campaign{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Filters</h2>
+    <div style="display:flex; gap:8px;">
+      <button type="button" class="btn" id="reset-filters-btn">Reset Filters</button>
+      <button type="button" class="btn btn-primary" id="export-btn">Export Filtered Data (CSV)</button>
+    </div>
+  </div>
+
+  <form class="filter-bar" id="filter-form">
+    <div class="filter-field">
+      <label for="f-campaign-type">Campaign Type</label>
+      <select id="f-campaign-type" name="campaign_type"><option value="">All</option></select>
+    </div>
+    <div class="filter-field">
+      <label for="f-target-audience">Target Audience</label>
+      <select id="f-target-audience" name="target_audience"><option value="">All</option></select>
+    </div>
+    <div class="filter-field">
+      <label for="f-channel">Channel (contains)</label>
+      <input type="text" id="f-channel" name="channel" placeholder="e.g. Instagram" />
+    </div>
+    <div class="filter-field">
+      <label for="f-language">Language</label>
+      <select id="f-language" name="language"><option value="">All</option></select>
+    </div>
+    <div class="filter-field">
+      <label for="f-customer-segment">Customer Segment</label>
+      <select id="f-customer-segment" name="customer_segment"><option value="">All</option></select>
+    </div>
+    <div class="filter-field" style="min-width: 200px;">
+      <label for="f-search">Search Campaign ID</label>
+      <input type="text" id="f-search" name="search" placeholder="e.g. NY-CMP-1000" />
+    </div>
+  </form>
+
+  <div class="filter-bar" style="margin-top:4px;">
+    <div class="filter-field">
+      <label>Duration (days)</label>
+      <div style="display:flex; gap:6px;">
+        <input type="number" id="f-duration-min" placeholder="Min" style="width:80px;" />
+        <input type="number" id="f-duration-max" placeholder="Max" style="width:80px;" />
+      </div>
+    </div>
+    <div class="filter-field">
+      <label>Acquisition Cost</label>
+      <div style="display:flex; gap:6px;">
+        <input type="number" id="f-cost-min" placeholder="Min" style="width:90px;" />
+        <input type="number" id="f-cost-max" placeholder="Max" style="width:90px;" />
+      </div>
+    </div>
+    <div class="filter-field">
+      <label>ROI</label>
+      <div style="display:flex; gap:6px;">
+        <input type="number" step="0.01" id="f-roi-min" placeholder="Min" style="width:80px;" />
+        <input type="number" step="0.01" id="f-roi-max" placeholder="Max" style="width:80px;" />
+      </div>
+    </div>
+    <div class="filter-field">
+      <label>Revenue</label>
+      <div style="display:flex; gap:6px;">
+        <input type="number" id="f-revenue-min" placeholder="Min" style="width:100px;" />
+        <input type="number" id="f-revenue-max" placeholder="Max" style="width:100px;" />
+      </div>
+    </div>
+    <div class="filter-field">
+      <label>Conversions</label>
+      <div style="display:flex; gap:6px;">
+        <input type="number" id="f-conversions-min" placeholder="Min" style="width:90px;" />
+        <input type="number" id="f-conversions-max" placeholder="Max" style="width:90px;" />
+      </div>
+    </div>
+  </div>
+
+  <div id="active-filters-row" style="margin-top:12px;"></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Filtered Summary</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr);" id="filtered-summary-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Campaign Performance Table</h2>
+    <div class="filter-field" style="min-width:120px;">
+      <label for="table-page-size">Rows per page</label>
+      <select id="table-page-size">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+  <div id="campaigns-table"><div class="state state--loading">Loading…</div></div>
+  <div class="pagination-bar">
+    <div class="pagination-bar__info" id="table-page-info">—</div>
+    <div class="pagination-bar__controls">
+      <button type="button" id="table-page-prev" aria-label="Previous page">&larr;</button>
+      <button type="button" id="table-page-next" aria-label="Next page">&rarr;</button>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Campaign Type Performance</h2>
+  <div class="grid grid--2" style="margin-bottom:16px;">
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Revenue by Campaign Type</div><div class="chart-canvas-wrap"><canvas id="chart-type-revenue"></canvas></div></div>
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Average ROI by Campaign Type</div><div class="chart-canvas-wrap"><canvas id="chart-type-roi"></canvas></div></div>
+  </div>
+  <div class="chart-panel" style="margin-bottom:16px;"><div class="chart-panel__title">Campaign Count by Campaign Type</div><div class="chart-canvas-wrap"><canvas id="chart-type-count"></canvas></div></div>
+  <div id="type-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Channel Performance</h2>
+  <p class="panel__text" id="channel-note" style="margin-bottom:14px;"></p>
+  <div id="channel-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Customer Segment Performance</h2>
+  <div class="grid grid--2" style="margin-bottom:16px;">
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Revenue by Customer Segment</div><div class="chart-canvas-wrap"><canvas id="chart-segment-revenue"></canvas></div></div>
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Average ROI by Customer Segment</div><div class="chart-canvas-wrap"><canvas id="chart-segment-roi"></canvas></div></div>
+  </div>
+  <div class="chart-panel" style="margin-bottom:16px;"><div class="chart-panel__title">Conversions by Customer Segment</div><div class="chart-canvas-wrap"><canvas id="chart-segment-conversions"></canvas></div></div>
+  <div id="segment-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Target Audience Performance</h2>
+  <div id="audience-highlights" class="grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom:16px;"></div>
+  <div id="audience-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Language Performance</h2>
+  <div id="language-highlights" style="margin-bottom:14px;"></div>
+  <div id="language-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">ROI Distribution</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:16px;" id="roi-distribution-stats">
+    <div class="state state--loading">Loading…</div>
+  </div>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__title">ROI Distribution</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-roi-histogram"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title" id="performance-tiers-title">Illustrative ROI Performance Bands</h2>
+  <p class="panel__text" style="margin-bottom:14px;">
+    These are analytical display bands for exploration, not statistical significance thresholds.
+  </p>
+  <div id="performance-tiers-content"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Top Performing Campaigns</h2>
+    <div style="display:flex; gap:8px; align-items:flex-end;">
+      <div class="filter-field">
+        <label for="top-metric">Rank by</label>
+        <select id="top-metric">
+          <option value="roi">ROI</option>
+          <option value="revenue">Revenue</option>
+          <option value="conversions">Conversions</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="top-limit">Show</label>
+        <select id="top-limit">
+          <option value="10">Top 10</option>
+          <option value="25">Top 25</option>
+          <option value="50">Top 50</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div id="top-campaigns-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Underperforming Campaigns</h2>
+    <div style="display:flex; gap:8px; align-items:flex-end;">
+      <div class="filter-field">
+        <label for="under-metric">Sort by</label>
+        <select id="under-metric">
+          <option value="lowest_roi">Lowest ROI</option>
+          <option value="highest_acquisition_cost">Highest Acquisition Cost</option>
+          <option value="lowest_conversions">Lowest Conversions</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="under-limit">Show</label>
+        <select id="under-limit">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <p class="panel__text" style="margin-bottom:14px;">Underperforming relative to the selected metric — not labeled as failures.</p>
+  <div id="underperforming-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/campaign-analytics.js') }}"></script>
+{% endblock %}

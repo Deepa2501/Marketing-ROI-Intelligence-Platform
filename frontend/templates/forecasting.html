@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Forecasting & Future Outlook · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Forecasting & Future Outlook{% endblock %}
+{% block page_desc %}Historical trends and cautious near-term directional outlook{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Outlook Summary</h2>
+    <span class="governance-badge">Directional Outlook — Not a Guaranteed Forecast</span>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(4,1fr);" id="kpi-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Revenue — Historical + Forecast</h2>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__subtitle">Solid line: historical monthly revenue. Dashed line: estimated 3-month outlook.</div>
+    <div class="chart-canvas-wrap chart-canvas-wrap--tall"><canvas id="chart-forecast-revenue"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">ROI — Historical + Forecast</h2>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__subtitle">Solid line: historical monthly average ROI. Dashed line: estimated 3-month outlook.</div>
+    <div class="chart-canvas-wrap chart-canvas-wrap--tall"><canvas id="chart-forecast-roi"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Conversions — Historical + Forecast</h2>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__subtitle">Solid line: historical monthly conversions. Dashed line: estimated 3-month outlook.</div>
+    <div class="chart-canvas-wrap chart-canvas-wrap--tall"><canvas id="chart-forecast-conversions"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Trend Intelligence</h2>
+  <div id="trend-summary-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Historical Backtest</h2>
+  <p class="panel__text" style="margin-bottom:14px;">
+    This backtest evaluates how the simple forecasting method performed on historical holdout data. It does not guarantee future accuracy.
+  </p>
+  <div id="backtest-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Forecast Methodology</h2>
+  <div id="methodology-content"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Future Outlook Signals</h2>
+  <div id="outlook-signals-grid" class="grid grid--2"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Forecast Guardrails</h2>
+  <div class="guardrails-panel">
+    <ul>
+      <li>Forecasts are directional estimates, not guaranteed outcomes.</li>
+      <li>Historical patterns may not continue.</li>
+      <li>Marketing campaigns can be affected by seasonality, market conditions, pricing, competition, and external events.</li>
+      <li>High volatility reduces forecast reliability.</li>
+      <li>Short historical series should be treated cautiously.</li>
+      <li>Forecasts do not establish causality.</li>
+      <li>Forecasts should support decisions, not replace business judgment.</li>
+    </ul>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/forecasting.js') }}"></script>
+{% endblock %}

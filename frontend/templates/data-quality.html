@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Data Quality & Governance · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Data Quality & Governance{% endblock %}
+{% block page_desc %}Validate the data behind marketing decisions{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Data Quality Overview</h2>
+    <span class="governance-badge" id="readiness-badge">Loading…</span>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(5, 1fr);" id="overview-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Data Completeness</h2>
+  <p class="panel__text" style="margin-bottom:14px;" id="completeness-note"></p>
+  <div id="completeness-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Data Validation</h2>
+  <div class="grid grid--2">
+    <div>
+      <h3 style="font-size:12.5px; font-family: var(--font-mono); color: var(--text-faint); text-transform:uppercase; margin-bottom:10px;">Data Types</h3>
+      <div id="type-validation-table"><div class="state state--loading">Loading…</div></div>
+    </div>
+    <div>
+      <h3 style="font-size:12.5px; font-family: var(--font-mono); color: var(--text-faint); text-transform:uppercase; margin-bottom:10px;">Numeric Ranges</h3>
+      <div id="range-validation-table"><div class="state state--loading">Loading…</div></div>
+    </div>
+  </div>
+  <div class="grid grid--2" style="margin-top:16px;">
+    <div>
+      <h3 style="font-size:12.5px; font-family: var(--font-mono); color: var(--text-faint); text-transform:uppercase; margin-bottom:10px;">Date Validity</h3>
+      <div id="date-validity-content"><div class="state state--loading">Loading…</div></div>
+    </div>
+    <div>
+      <h3 style="font-size:12.5px; font-family: var(--font-mono); color: var(--text-faint); text-transform:uppercase; margin-bottom:10px;">Funnel Consistency</h3>
+      <div id="funnel-validation-table"><div class="state state--loading">Loading…</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Statistical Outlier Monitor</h2>
+  <p class="panel__text" style="margin-bottom:14px;">
+    Outliers are statistical observations and are not automatically invalid records.
+  </p>
+  <div class="chart-panel" style="margin-bottom:16px;">
+    <div class="chart-panel__title">Outlier Share by Field (IQR method)</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-outliers"></canvas></div>
+  </div>
+  <div id="outlier-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Duplicate Analysis</h2>
+  <div id="duplicate-content"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Dataset Dictionary</h2>
+    <div class="filter-field" style="min-width:220px;">
+      <label for="dictionary-search">Search field</label>
+      <input type="text" id="dictionary-search" placeholder="e.g. Revenue" />
+    </div>
+  </div>
+  <div id="dictionary-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Governance Flags</h2>
+  <div id="governance-flags-grid" class="limitations-grid"><div class="state state--loading">Loading…</div></div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/data-quality.js') }}"></script>
+{% endblock %}

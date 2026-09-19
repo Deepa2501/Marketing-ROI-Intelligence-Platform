@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Model Intelligence · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Model Intelligence{% endblock %}
+{% block page_desc %}Model performance, comparison, and feature importance{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom: 16px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Model Intelligence</h2>
+    <span class="governance-badge" id="governance-badge-top">Decision Support — Not Causal Inference</span>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 0;" id="model-info-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Model Comparison</h2>
+  <p class="panel__text" style="margin-bottom: 16px;">
+    R², MAE, and RMSE are shown separately since they use different scales and shouldn't be combined into one chart.
+  </p>
+  <div id="comparison-cards" class="comparison-grid"><div class="state state--loading">Loading…</div></div>
+  <div class="grid grid--2">
+    <div class="chart-panel" style="margin-bottom:0;">
+      <div class="chart-panel__title">R² by Model</div>
+      <div class="chart-canvas-wrap"><canvas id="chart-r2"></canvas></div>
+    </div>
+    <div class="chart-panel" style="margin-bottom:0;">
+      <div class="chart-panel__title">MAE / RMSE by Model</div>
+      <div class="chart-canvas-wrap"><canvas id="chart-error"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="acquisition-cost-dominance-section">
+  <h2 class="panel__title">Acquisition Cost Dominance</h2>
+  <div id="acquisition-cost-dominance-content"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Feature Importance</h2>
+  <p class="panel__text" style="margin-bottom: 14px;">
+    Top features, computed directly from the trained model. Feature importance represents model
+    dependence / predictive contribution — not causal impact.
+  </p>
+  <div id="feature-importance-content"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Interpretation</h2>
+  <div id="interpretation-content" class="grid grid--2">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">What the Model Can and Cannot Tell Us</h2>
+  <div id="can-cannot-content" class="grid grid--2">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Model Limitations</h2>
+  <div id="limitations-content" class="limitations-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/model-intelligence.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Scenario Simulator · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Scenario Simulator{% endblock %}
+{% block page_desc %}Compare campaign planning scenarios before launch{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <h2 class="panel__title">Model Used</h2>
+  <div id="model-transparency-card" class="grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 0;">
+    <div class="state state--loading">Loading…</div>
+  </div>
+  <p class="panel__text" style="margin-top: 14px;">
+    Only planning-stage variables are used. Acquisition Cost has substantial predictive influence in this
+    model — predictions are decision-support estimates, not evidence that campaign strategy independently
+    causes ROI.
+  </p>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Scenario Configuration</h2>
+    <div style="display:flex; gap:8px;">
+      <button type="button" class="btn" id="add-scenario-btn">+ Add Scenario</button>
+      <button type="button" class="btn" id="reset-scenarios-btn">Reset</button>
+      <button type="button" class="btn btn-primary" id="compare-btn">Compare Scenarios</button>
+    </div>
+  </div>
+
+  <div id="scenario-cards" class="scenario-grid"></div>
+</section>
+
+<section class="panel" id="comparison-section" hidden>
+  <h2 class="panel__title">Scenario Comparison</h2>
+  <div id="comparison-results"></div>
+
+  <p class="panel__text" style="margin-top: 12px; font-size: 12px;">
+    <strong>Illustrative Estimated Profit = Acquisition Cost × Predicted ROI</strong><br />
+    This is a model-derived estimate for decision support and is not guaranteed financial profit or revenue.
+  </p>
+
+  <div class="chart-panel" style="margin-top:16px; margin-bottom:0;">
+    <div class="chart-panel__title">Predicted ROI by Scenario</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-scenario-roi"></canvas></div>
+  </div>
+
+  <div id="recommended-scenario" style="margin-top:16px;"></div>
+
+  <p class="panel__text" style="margin-top:14px;">
+    Predictions are model estimates and should be used for decision support, not as guaranteed financial
+    outcomes. Recommendation is based on model predictions and should be validated against business
+    constraints and historical performance.
+  </p>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Budget Sensitivity</h2>
+  <p class="panel__text" style="margin-bottom:14px;">
+    Model-based sensitivity analysis — this shows how the predicted ROI changes as acquisition cost changes,
+    with every other planning variable held constant. It does not imply that increasing budget causes higher ROI.
+  </p>
+  <p class="panel__text" style="margin-bottom:14px; font-size: 12px;">
+    <strong>Illustrative Estimated Profit = Acquisition Cost × Predicted ROI</strong><br />
+    This is a model-derived estimate for decision support and is not guaranteed financial profit or revenue.
+  </p>
+
+  <div class="filter-bar">
+    <div class="filter-field" style="min-width:220px;">
+      <label for="sensitivity-base-scenario">Base scenario</label>
+      <select id="sensitivity-base-scenario"></select>
+    </div>
+    <button type="button" class="btn btn-primary" id="run-sensitivity-btn">Run Sensitivity Analysis</button>
+  </div>
+
+  <div id="sensitivity-content"></div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/scenario-simulator.js') }}"></script>
+{% endblock %}

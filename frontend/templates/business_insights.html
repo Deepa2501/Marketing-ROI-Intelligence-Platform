@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Business Insights · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Business Insights{% endblock %}
+{% block page_desc %}Data-driven findings and recommendations{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <h2 class="panel__title">Campaign Performance</h2>
+  <div class="grid grid--2" id="insights-campaign"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Customer Segments</h2>
+  <div class="grid grid--2" id="insights-segments"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Statistical Findings</h2>
+  <div class="grid" style="grid-template-columns: repeat(3, 1fr);" id="insights-statistics"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">A/B Testing</h2>
+  <div id="insights-abtest"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">ML Findings</h2>
+  <div class="grid grid--2" id="insights-ml"><div class="state state--loading">Loading…</div></div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/business-insights.js') }}"></script>
+{% endblock %}

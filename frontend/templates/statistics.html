@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Statistical Intelligence · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Statistical Intelligence{% endblock %}
+{% block page_desc %}Correlations, distributions, and outlier analysis{% endblock %}
+
+{% block content %}
+<div class="grid grid--2" style="margin-bottom: 16px;">
+  <div class="chart-panel">
+    <div class="chart-panel__title">ROI Correlation Analysis</div>
+    <div class="chart-panel__subtitle">Pearson correlation of each variable with ROI, strongest to weakest</div>
+    <div class="chart-canvas-wrap chart-canvas-wrap--tall"><canvas id="chart-correlations"></canvas></div>
+  </div>
+
+  <section class="panel" style="margin-bottom: 0;">
+    <h2 class="panel__title">Statistical Significance</h2>
+    <div id="significance-table"><div class="state state--loading">Loading…</div></div>
+  </section>
+</div>
+
+<section class="panel">
+  <h2 class="panel__title">Distribution Analysis</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr);" id="distribution-cards">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Outlier Analysis</h2>
+  <p class="panel__text" style="margin-bottom: 14px;">
+    Outliers below are observations identified using the IQR (interquartile range) method —
+    they are not necessarily errors, and may represent legitimate high-performing or unusual campaigns.
+  </p>
+  <div id="outlier-table"><div class="state state--loading">Loading…</div></div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/statistics.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Platform Health & Readiness · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Platform Health &amp; Readiness{% endblock %}
+{% block page_desc %}System integrity, analytical assets, and deployment readiness{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Platform Status</h2>
+    <span class="governance-badge" id="overall-status-badge">Checking…</span>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(6, 1fr);" id="status-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">System Checks</h2>
+  <div id="checks-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Dataset &amp; Model</h2>
+  <div class="grid grid--2" id="asset-detail"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Model Governance</h2>
+  <div class="guardrails-panel">
+    <ul id="model-governance-list"></ul>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Analytical Guardrails</h2>
+  <div class="guardrails-panel">
+    <ul id="analytical-guardrails-list"></ul>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title" id="final-governance-title">Decision-Support Platform</h2>
+  <div class="guardrails-panel">
+    <ul id="final-governance-list"></ul>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/platform-health.js') }}"></script>
+{% endblock %}

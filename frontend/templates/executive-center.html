@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Executive Decision Center · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Executive Decision Center{% endblock %}
+{% block page_desc %}Portfolio-level marketing performance and decision signals{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <h2 class="panel__title">Portfolio Health</h2>
+  <div class="exec-health-layout">
+    <div class="exec-health-score-card" id="health-score-card">
+      <div class="state state--loading">Loading…</div>
+    </div>
+    <div class="grid" style="grid-template-columns: repeat(2, 1fr);" id="health-kpi-grid">
+      <div class="state state--loading">Loading…</div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Executive Snapshot</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr);" id="snapshot-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Strategic Priorities</h2>
+  <div id="priorities-list" class="priority-list"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Opportunity Scorecard</h2>
+  <div id="opportunity-table"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Executive Risk Monitor</h2>
+  <div id="risk-list" class="rec-grid"><div class="state state--loading">Loading…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Performance Landscape</h2>
+  <div class="grid grid--2" style="margin-bottom:16px;">
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Average ROI by Campaign Type</div><div class="chart-canvas-wrap"><canvas id="chart-exec-type-roi"></canvas></div></div>
+    <div class="chart-panel" style="margin-bottom:0;"><div class="chart-panel__title">Average ROI by Customer Segment</div><div class="chart-canvas-wrap"><canvas id="chart-exec-segment-roi"></canvas></div></div>
+  </div>
+  <div class="chart-panel" style="margin-bottom:0;">
+    <div class="chart-panel__title">Portfolio ROI Exposure</div>
+    <div class="chart-panel__subtitle">Share of campaigns with positive vs negative observed ROI</div>
+    <div class="chart-canvas-wrap"><canvas id="chart-exec-exposure"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Decision Guardrails</h2>
+  <div id="guardrails-panel" class="guardrails-panel"><div class="state state--loading">Loading…</div></div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/executive-center.js') }}"></script>
+{% endblock %}

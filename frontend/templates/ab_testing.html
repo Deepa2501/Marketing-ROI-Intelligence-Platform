@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}A/B Testing · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}A/B Testing{% endblock %}
+{% block page_desc %}Social Media vs Paid Ads experiment comparison{% endblock %}
+
+{% block content %}
+<div id="ab-test-content">
+  <div class="state state--loading">Loading experiment results…</div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/ab-testing.js') }}"></script>
+{% endblock %}

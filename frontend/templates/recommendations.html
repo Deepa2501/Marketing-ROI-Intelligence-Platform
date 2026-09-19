@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Recommendation Intelligence · Marketing ROI Intelligence{% endblock %}
+{% block page_title %}Recommendation Intelligence{% endblock %}
+{% block page_desc %}Turn campaign analytics into evidence-based actions{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  <h2 class="panel__title">Recommendation Summary</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr);" id="summary-grid">
+    <div class="state state--loading">Loading…</div>
+  </div>
+</section>
+
+<section class="panel">
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+    <h2 class="panel__title" style="margin-bottom:0;">Top Recommendations</h2>
+    <div class="filter-field" style="min-width:200px;">
+      <label for="type-filter">Filter by category</label>
+      <select id="type-filter">
+        <option value="">All categories</option>
+        <option value="campaign">Campaign</option>
+        <option value="segment">Customer Segment</option>
+        <option value="audience">Target Audience</option>
+        <option value="channel">Channel</option>
+        <option value="budget">Budget / Cost</option>
+        <option value="risk">Risk</option>
+      </select>
+    </div>
+  </div>
+  <div id="recommendation-cards" class="rec-grid"><div class="state state--loading">Loading recommendations…</div></div>
+</section>
+
+<section class="panel">
+  <h2 class="panel__title">Model Caveat</h2>
+  <p class="panel__text">
+    The ROI prediction model is an early-stage Random Forest (R² ≈ 0.803, MAE ≈ 1.148). Acquisition Cost
+    explains most of its predictive power. Recommendations informed by this model are decision-support
+    estimates, not evidence that campaign strategy independently causes ROI.
+  </p>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/recommendations.js') }}"></script>
+{% endblock %}
