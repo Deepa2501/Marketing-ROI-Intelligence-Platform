@@ -1,4 +1,4 @@
-# Phase 15 Completion Report
+# Completion Report
 
 **Phase:** 15 — Platform Quality & Portfolio Readiness (final phase)
 **Date of verification run:** see `reports/platform_test_summary.json`
